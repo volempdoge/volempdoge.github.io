@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://volempdoge.github.io/betaflight-designer-fonts/sitemap.xml
