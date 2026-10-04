@@ -1,0 +1,15 @@
+/* Terminal CV design system (vendored from the Claude Design project, see ds/), then the page. */
+@import "./ds/fonts.css";
+@import "./ds/colors.css";
+@import "./ds/typography.css";
+@import "./ds/spacing.css";
+@import "./ds/effects.css";
+@import "./ds/base.css";
+@import "./ds/core.css";
+@import "./ds/surfaces.css";
+@import "./ds/forms.css";
+@import "./ds/navigation.css";
+@import "./ds/feedback.css";
+@import "./ds/cli.css";
+@import "./ds/cv.css";
+@import "./page.css";

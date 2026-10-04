@@ -1,0 +1,7 @@
+dist/
+playwright-report/
+test-results/
+package-lock.json
+public/
+# Vendored from the Claude Design project as is, to keep diffs against it small.
+src/styles/ds/
