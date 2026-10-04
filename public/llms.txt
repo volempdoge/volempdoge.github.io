@@ -7,6 +7,7 @@ The site has two focuses of the same CV: embedded (default) and software. The fu
 ## CV
 
 - [Website](https://volempdoge.github.io/): interactive CV with a terminal, en / ua, three themes
+- [Website, Ukrainian](https://volempdoge.github.io/uk/): the same CV in Ukrainian
 - [CV in Markdown](https://volempdoge.github.io/index.md): full CV with both focuses, plain text
 - [CV, embedded focus](https://volempdoge.github.io/?role=embedded): web version
 - [CV, software focus](https://volempdoge.github.io/?role=software): web version

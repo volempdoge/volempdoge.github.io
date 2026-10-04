@@ -31,22 +31,24 @@ describe('prerender', () => {
     expect(html).toContain('d8e3735');
   });
 
-  it('hydrates without mismatches, then applies saved settings', async () => {
+  it.each([
+    ['en', 'Volodymyr Myronenko', 'KSE Political Studies Club website'],
+    ['ua', 'Володимир Мироненко', 'Сайт Гуртка політичних студій KSE'],
+  ])('hydrates the %s page without mismatches, then applies the saved focus', async (lang, name, kse) => {
+    const props = { ...data, lang };
     const root = document.createElement('div');
-    root.innerHTML = renderToString(<App {...data} />);
+    root.innerHTML = renderToString(<App {...props} />);
     document.body.appendChild(root);
-    localStorage.setItem('vm-cv2.lang', 'ua');
     localStorage.setItem('vm-cv2.role', 'software');
     window.matchMedia = vi.fn(() => ({ matches: true }));
     const errors = [];
     const consoleError = vi.spyOn(console, 'error').mockImplementation((...a) => errors.push(a.join(' ')));
     await act(async () => {
-      hydrateRoot(root, <App {...data} />, { onRecoverableError: (e) => errors.push(String(e)) });
+      hydrateRoot(root, <App {...props} />, { onRecoverableError: (e) => errors.push(String(e)) });
     });
     consoleError.mockRestore();
     expect(errors).toEqual([]);
-    expect(root.querySelector('h1').textContent).toBe('Володимир Мироненко');
-    expect(root.textContent).toContain('Сайт Гуртка політичних студій KSE');
-    expect(document.documentElement.lang).toBe('uk');
+    expect(root.querySelector('h1').textContent).toBe(name);
+    expect(root.textContent).toContain(kse);
   });
 });

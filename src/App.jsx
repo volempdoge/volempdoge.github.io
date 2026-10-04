@@ -1,5 +1,5 @@
 import { Component, createRef } from 'react';
-import { DEFAULTS, EMAIL, LANGS, ROLES, SECTION_IDS, TEXT, THEMES, cvFor, expDuration } from './content.js';
+import { DEFAULTS, EMAIL, PAGES, ROLES, SECTION_IDS, TEXT, THEMES, cvFor, expDuration } from './content.js';
 import { Button, Icon, Kbd, Prompt, Toast, Window } from './ds/index.js';
 import { readJSON, readStore, urlRole, writeJSON, writeStore, writeUrlRole } from './lib/storage.js';
 import { TextFx } from './lib/textfx.js';
@@ -77,19 +77,33 @@ function registerThemeTokens() {
 }
 
 const reducedMotion = () => !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-const htmlLang = (lang) => (lang === 'ua' ? 'uk' : 'en');
+
+/** Points the address bar, tab title and description at the page for `lang` (/ or /uk/). */
+function showPage(lang) {
+  const page = PAGES[lang];
+  document.documentElement.lang = page.htmlLang;
+  document.title = page.title;
+  const desc = document.querySelector('meta[name="description"]');
+  if (desc) desc.setAttribute('content', page.description);
+  try {
+    window.history.replaceState(window.history.state, '', page.path + window.location.search + window.location.hash);
+  } catch {
+    // address bar not updated
+  }
+}
 
 /**
- * The CV page. Props: `now` (ISO time of the build) and `commit`
- * ({ sha, url, date } or null). The first render uses the defaults in
- * DEFAULTS, so it matches the prerendered HTML; saved settings are applied
- * once mounted.
+ * The CV page. Props: `lang` (of the page: / is en, /uk/ is ua), `now` (ISO
+ * time of the build) and `commit` ({ sha, url, date } or null). The first
+ * render uses DEFAULTS for the rest, so it matches the prerendered HTML; the
+ * saved theme and focus are applied once mounted.
  */
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ...DEFAULTS,
+      lang: props.lang || DEFAULTS.lang,
       now: new Date(props.now),
       active: 'about',
       roleMenuOpen: false,
@@ -168,15 +182,12 @@ export default class App extends Component {
 
   componentDidMount() {
     registerThemeTokens();
-    const lang = readStore('lang', DEFAULTS.lang, LANGS);
     const theme = readStore('theme', DEFAULTS.theme, THEMES);
     const role = urlRole() || readStore('role', DEFAULTS.role, ROLES);
     this.history = readJSON('hist', []);
     document.documentElement.dataset.theme = theme;
-    document.documentElement.lang = htmlLang(lang);
     this.setState(
       {
-        lang,
         theme,
         role,
         palRecent: readJSON('recent', []),
@@ -400,7 +411,7 @@ export default class App extends Component {
   setLang = (lang) => {
     if (lang === this.state.lang) return;
     writeStore('lang', lang);
-    document.documentElement.lang = htmlLang(lang);
+    showPage(lang);
     const mode = reducedMotion() ? 'off' : LANG_ANIM;
     if (mode === 'off') {
       this.fx.stop(true);

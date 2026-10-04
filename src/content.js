@@ -7,6 +7,30 @@ export const THEMES = ['night', 'dark', 'light'];
 export const ROLES = ['embedded', 'software'];
 export const DEFAULTS = { lang: 'en', theme: 'dark', role: 'embedded' };
 
+export const SITE_URL = 'https://volempdoge.github.io';
+
+/** One prerendered page per language; `ua` is the app's code, `uk` the language tag. */
+export const PAGES = {
+  en: {
+    path: '/',
+    htmlLang: 'en',
+    locale: 'en_US',
+    title: 'Volodymyr Myronenko · Embedded & Software Engineer · CV',
+    description:
+      'Volodymyr Myronenko, embedded and software engineer in Kyiv: firmware in C/C++ for STM32 and ESP32, hardware test rigs and production automation.',
+    ogImageAlt: 'Volodymyr Myronenko, Embedded Engineer and Software Engineer, Kyiv, Ukraine',
+  },
+  ua: {
+    path: '/uk/',
+    htmlLang: 'uk',
+    locale: 'uk_UA',
+    title: 'Володимир Мироненко · інженер вбудованих систем і ПЗ · CV',
+    description:
+      'Володимир Мироненко, інженер вбудованих систем і програмний інженер у Києві: прошивки на C/C++ для STM32 і ESP32, тестові стенди та автоматизація виробництва.',
+    ogImageAlt: 'Володимир Мироненко, Embedded Engineer і Software Engineer, Київ, Україна',
+  },
+};
+
 export const SECTION_IDS = ['about', 'experience', 'projects', 'skills', 'education', 'contact'];
 export const SECTION_FILES = {
   about: 'README.md',

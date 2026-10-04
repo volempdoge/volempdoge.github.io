@@ -3,37 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--head:start-->
     <title>Volodymyr Myronenko · CV</title>
-    <meta
-      name="description"
-      content="Volodymyr Myronenko, embedded and software engineer in Kyiv. Firmware, test rigs, production automation."
-    />
-    <link rel="canonical" href="https://volempdoge.github.io/" />
+    <!--head:end-->
     <link rel="alternate" type="text/markdown" href="/index.md" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png" />
     <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#000000" />
-    <meta property="og:type" content="profile" />
-    <meta property="og:url" content="https://volempdoge.github.io/" />
-    <meta property="og:title" content="Volodymyr Myronenko · CV" />
-    <meta
-      property="og:description"
-      content="Embedded and software engineer in Kyiv. Firmware, test rigs, production automation."
-    />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Volodymyr Myronenko",
-        "alternateName": "Володимир Мироненко",
-        "jobTitle": "Embedded Engineer",
-        "url": "https://volempdoge.github.io/",
-        "email": "mailto:volempdoge@gmail.com",
-        "address": { "@type": "PostalAddress", "addressLocality": "Kyiv", "addressCountry": "UA" },
-        "sameAs": ["https://github.com/volempdoge", "https://linkedin.com/in/volempdoge"]
-      }
-    </script>
+    <meta name="theme-color" content="#0b0c0d" />
     <link rel="preload" href="/fonts/ibm-plex-sans-latin-300.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/ibm-plex-sans-latin-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/ibm-plex-sans-latin-500.woff2" as="font" type="font/woff2" crossorigin />
@@ -42,10 +19,12 @@
     <link rel="preload" href="/fonts/ibm-plex-mono-latin-500.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
     <script>
-      // Before first paint: apply the saved theme, and if the saved language or
-      // focus differs from the prerendered page (en, embedded), show the boot
-      // screen until the app has switched (App#finishBoot). The timeout lifts it
-      // if the app never loads.
+      // Before first paint. The page is prerendered per language (/ and /uk/),
+      // with the embedded focus and the dark theme:
+      // - a reader who chose Ukrainian before is sent from / to /uk/;
+      // - the saved theme is applied;
+      // - a saved or linked software focus shows the boot screen until the app
+      //   has switched (App#finishBoot); the timeout lifts it if the app never loads.
       (function () {
         var d = document.documentElement;
         var get = function (k) {
@@ -55,30 +34,22 @@
             return null;
           }
         };
+        if (location.pathname === '/' && get('lang') === 'ua') {
+          location.replace('/uk/' + location.search + location.hash);
+          return;
+        }
         var theme = get('theme');
         d.setAttribute('data-theme', theme === 'light' || theme === 'night' ? theme : 'dark');
-        var lang = get('lang') === 'ua' ? 'ua' : 'en';
         var role = null;
         try {
           role = new URLSearchParams(location.search).get('role');
         } catch (e) {}
         if (role !== 'embedded' && role !== 'software') role = get('role');
-        if (lang === 'en' && role !== 'software') return;
+        if (role !== 'software') return;
         d.setAttribute('data-boot', '');
         setTimeout(function () {
           d.removeAttribute('data-boot');
         }, 4000);
-        if (lang !== 'ua') return;
-        d.lang = 'uk';
-        ['sans-cyrillic-300', 'sans-cyrillic-400', 'mono-cyrillic-400', 'mono-cyrillic-500'].forEach(function (f) {
-          var l = document.createElement('link');
-          l.rel = 'preload';
-          l.as = 'font';
-          l.type = 'font/woff2';
-          l.crossOrigin = 'anonymous';
-          l.href = '/fonts/ibm-plex-' + f + '.woff2';
-          document.head.appendChild(l);
-        });
       })();
     </script>
     <script type="module" src="/src/main.jsx"></script>

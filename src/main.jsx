@@ -6,7 +6,9 @@ import './styles/index.css';
 // the dev server serves the template with its placeholders.
 const root = document.getElementById('root');
 const raw = document.getElementById('cv-data').textContent.trim();
-const data = raw.startsWith('{') ? JSON.parse(raw) : { now: new Date().toISOString(), commit: null };
+const data = raw.startsWith('{')
+  ? JSON.parse(raw)
+  : { lang: location.pathname.startsWith('/uk/') ? 'ua' : 'en', now: new Date().toISOString(), commit: null };
 
 if (root.firstElementChild) hydrateRoot(root, <App {...data} />);
 else createRoot(root).render(<App {...data} />);
