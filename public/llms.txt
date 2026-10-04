@@ -1,0 +1,22 @@
+# Volodymyr Myronenko
+
+> Embedded and software engineer in Kyiv, Ukraine. 3+ years of hardware product development: firmware, test rigs and production automation, from schematic to series production. Open to office and remote work. MSc student in Micro- and Nanoelectronics at KSE.
+
+The site has two focuses of the same CV: embedded (default) and software. The full text of both is in index.md.
+
+## CV
+
+- [Website](https://volempdoge.github.io/): interactive CV with a terminal, en / ua, three themes
+- [CV in Markdown](https://volempdoge.github.io/index.md): full CV with both focuses, plain text
+- [CV, embedded focus](https://volempdoge.github.io/?role=embedded): web version
+- [CV, software focus](https://volempdoge.github.io/?role=software): web version
+
+## Projects
+
+- [Betaflight OSD Fonts](https://volempdoge.github.io/betaflight-designer-fonts/llms.txt): the ten stock Betaflight OSD fonts as colour OTF, TTF, WOFF and WOFF2, plus every character as a transparent PNG
+
+## Contact
+
+- Email: volempdoge@gmail.com
+- [GitHub](https://github.com/volempdoge)
+- [LinkedIn](https://linkedin.com/in/volempdoge)

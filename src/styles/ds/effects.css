@@ -1,0 +1,17 @@
+/* Glass, motion, focus */
+:root{
+  --glass-blur:24px;--glass-saturate:180%;
+  --glass:blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  --glass-strong:blur(40px) saturate(200%);/* @kind other */
+
+  --dur-instant:80ms;/* @kind other */--dur-fast:140ms;/* @kind other */--dur-base:200ms;/* @kind other */--dur-slow:320ms;/* @kind other */
+  --ease-out:cubic-bezier(.2,.8,.2,1);/* @kind other */
+  --ease-in-out:cubic-bezier(.6,0,.2,1);/* @kind other */
+  --ease-in:cubic-bezier(.4,0,1,1);/* @kind other */
+  --ease-pop:cubic-bezier(.3,1.25,.5,1);/* @kind other */
+
+  --focus-ring:0 0 0 2px var(--surface-desktop),0 0 0 4px var(--border-focus);
+  --desktop-pattern:radial-gradient(var(--pattern-dot) 1px,transparent 1.2px);
+  --desktop-pattern-size:18px 18px;
+}
+@media (prefers-reduced-motion:reduce){:root{--dur-instant:0ms;/* @kind other */--dur-fast:0ms;/* @kind other */--dur-base:0ms;/* @kind other */--dur-slow:0ms;/* @kind other */}}

@@ -1,0 +1,16 @@
+/* 4px base grid, with 2/6px half-steps for dense CLI chrome */
+:root{
+  --space-0:0;--space-0-5:2px;--space-1:4px;--space-1-5:6px;--space-2:8px;--space-3:12px;--space-4:16px;
+  --space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--space-24:96px;
+
+  --radius-xs:3px;--radius-sm:5px;--radius-md:7px;--radius-lg:10px;--radius-xl:14px;--radius-pill:999px;
+  --radius-control:var(--radius-sm);--radius-window:var(--radius-lg);
+
+  --border-width:1px;--hairline:.5px;
+
+  --control-h-sm:24px;--control-h-md:30px;--control-h-lg:38px;
+  --titlebar-h:34px;
+  --content-max:720px;--window-max:960px;--gutter:var(--space-6);
+
+  --z-base:0;/* @kind other */--z-window:10;/* @kind other */--z-sticky:100;/* @kind other */--z-popover:500;/* @kind other */--z-dialog:800;/* @kind other */--z-toast:900;/* @kind other */
+}

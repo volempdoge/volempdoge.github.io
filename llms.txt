@@ -1,7 +1,0 @@
-# volempdoge
-
-> Projects by Volodymyr Myronenko.
-
-## Projects
-
-- [Betaflight OSD Fonts](https://volempdoge.github.io/betaflight-designer-fonts/llms.txt): the ten stock Betaflight OSD fonts as colour OTF, TTF, WOFF and WOFF2, plus every character as a transparent PNG

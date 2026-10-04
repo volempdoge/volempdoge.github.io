@@ -1,0 +1,32 @@
+/* core: Icon, Button, IconButton, Kbd, Tag, StatusDot */
+.cv-icon{font-family:var(--font-icon);font-weight:normal;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;direction:ltr;font-feature-settings:'liga';-webkit-font-feature-settings:'liga';user-select:none;flex-shrink:0;width:1em;height:1em;overflow:hidden;}
+.cv-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:var(--control-h-md);padding:0 12px;border-radius:var(--radius-control);font:500 var(--type-ui-size)/1 var(--font-mono);border:1px solid var(--border-hairline);background:var(--surface-raised);color:var(--text-body);box-shadow:var(--shadow-control);cursor:pointer;white-space:nowrap;user-select:none;text-decoration:none;transition:background-color var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out),color var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out),opacity var(--dur-fast) var(--ease-out),transform var(--dur-instant) var(--ease-out);}
+.cv-btn:hover{background:var(--surface-hover);border-color:var(--border-strong);color:var(--text-heading);}
+.cv-btn:active{background:var(--surface-active);transform:translateY(.5px) scale(.985);}
+.cv-btn:focus-visible{outline:none;box-shadow:var(--focus-ring);}
+.cv-btn[disabled]{pointer-events:none;}
+.cv-btn[disabled]:not([aria-busy]){opacity:.42;}
+.cv-btn--primary{background:var(--accent);border-color:transparent;color:var(--text-on-accent);box-shadow:none;}
+.cv-btn--primary:hover{background:var(--accent-hover);border-color:transparent;color:var(--text-on-accent);}
+.cv-btn--ghost{background:transparent;border-color:transparent;box-shadow:none;color:var(--text-muted);}
+.cv-btn--ghost:hover{background:var(--surface-hover);border-color:transparent;}
+.cv-btn--danger{color:var(--danger);}
+.cv-btn--danger:hover{color:var(--danger);background:color-mix(in srgb,var(--danger) 12%,transparent);border-color:color-mix(in srgb,var(--danger) 40%,transparent);}
+.cv-btn--sm{height:var(--control-h-sm);padding:0 8px;font-size:var(--text-xs);gap:4px;border-radius:4px;}
+.cv-btn--lg{height:var(--control-h-lg);padding:0 16px;font-size:var(--text-md);gap:8px;}
+.cv-btn__kbd{margin-left:2px;font-size:11px;opacity:.6;font-weight:400;}
+.cv-iconbtn{padding:0;width:var(--control-h-md);}
+.cv-iconbtn.cv-btn--sm{width:var(--control-h-sm);}
+.cv-iconbtn.cv-btn--lg{width:var(--control-h-lg);}
+.cv-iconbtn--active,.cv-iconbtn--active:hover{background:var(--surface-active);color:var(--accent);}
+.cv-kbd-group{display:inline-flex;gap:3px;}
+.cv-kbd{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;border-radius:4px;font:500 11px/1 var(--font-mono);color:var(--text-muted);background:var(--surface-raised);border:1px solid var(--border-hairline);border-bottom-width:2px;}
+.cv-tag{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 7px;border-radius:var(--radius-xs);font:400 12px/1 var(--font-mono);color:var(--tone);border:1px solid color-mix(in srgb,var(--tone) 38%,transparent);background:transparent;white-space:nowrap;}
+.cv-tag--soft{background:color-mix(in srgb,var(--tone) 13%,transparent);border-color:transparent;}
+.cv-tag--solid{background:var(--tone);border-color:transparent;color:var(--text-on-accent);}
+.cv-tag__x{display:grid;place-items:center;margin:0 -3px 0 1px;padding:0;width:16px;height:16px;border:0;border-radius:3px;background:none;color:inherit;cursor:pointer;opacity:.7;transition:background-color var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out),color var(--dur-fast) var(--ease-out),box-shadow var(--dur-fast) var(--ease-out),opacity var(--dur-fast) var(--ease-out),transform var(--dur-instant) var(--ease-out);}
+.cv-tag__x:hover{opacity:1;background:color-mix(in srgb,var(--tone) 18%,transparent);}
+.cv-status{display:inline-flex;align-items:center;gap:7px;font:400 12px/1 var(--font-mono);color:var(--text-muted);}
+.cv-dot{width:7px;height:7px;border-radius:50%;background:var(--tone);flex-shrink:0;}
+.cv-dot--pulse{animation:cv-pulse 1.8s var(--ease-out) infinite;}
+@keyframes cv-pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--tone) 70%,transparent)}100%{box-shadow:0 0 0 7px transparent}}
