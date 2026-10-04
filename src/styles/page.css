@@ -74,6 +74,15 @@ a:hover {
   --text-on-accent: #fff;
 }
 
+/* White on the dark accent is 4.4:1; these shades keep primary buttons at 4.5:1 or more (WCAG AA). */
+[data-theme="dark"] .cv-btn--primary {
+  background: #865dd0;
+}
+
+[data-theme="dark"] .cv-btn--primary:hover {
+  background: #7a50c4;
+}
+
 @keyframes cv-term-in {
   from {
     opacity: 0;

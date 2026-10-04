@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>404 · volempdoge</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png" />
+    <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico" />
+    <meta name="theme-color" content="#0b0c0d" />
+    <style>
+      @font-face {
+        font-family: 'IBM Plex Mono';
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/ibm-plex-mono-latin-400.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'IBM Plex Mono';
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/ibm-plex-mono-cyrillic-400.woff2') format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491;
+      }
+      html {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-content: center;
+        gap: 12px;
+        padding: 16px;
+        box-sizing: border-box;
+        font: 16px/1.7 'IBM Plex Mono', ui-monospace, monospace;
+        background: #0b0c0d radial-gradient(rgb(255 255 255 / 6%) 1px, transparent 1.2px) 0 0 / 18px 18px;
+        color: #b5b3ae;
+      }
+      b {
+        color: #8a63d2;
+        font-weight: 400;
+      }
+      .err {
+        color: #ff5d5d;
+      }
+      a {
+        color: #c2aceb;
+      }
+    </style>
+  </head>
+  <body>
+    <div><b>~</b> $ cd <span id="path"></span></div>
+    <div class="err">cd: no such file or directory</div>
+    <div><b>~</b> $ cd <a href="/">~/cv</a> &nbsp;·&nbsp; <a href="/uk/">~/cv/uk</a></div>
+    <script>
+      document.getElementById('path').textContent = location.pathname;
+    </script>
+  </body>
+</html>

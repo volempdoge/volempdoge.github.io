@@ -69,7 +69,7 @@ function RoleMenu({ t, role, open, menuRef, onToggle, onPick }) {
         onClick={onToggle}
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-label={t.roleCaption}
+        title={t.roleCaption}
       >
         <span>{t.titles[role]}</span>
         <Icon name={open ? 'expand_less' : 'expand_more'} size={18} />

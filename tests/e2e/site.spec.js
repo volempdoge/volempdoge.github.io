@@ -92,10 +92,11 @@ test('theme is applied and remembered', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'light' })).toHaveAttribute('aria-pressed', 'true');
 });
 
-test('saved language and shared focus are applied behind the boot screen', async ({ page }) => {
+test('a reader who chose Ukrainian is sent to /uk/, with the shared focus applied', async ({ page }) => {
   const errors = watchErrors(page);
   await page.addInitScript(() => localStorage.setItem('vm-cv2.lang', 'ua'));
-  await page.goto('/?role=software');
+  await page.goto('/?role=software#cv-skills');
+  await expect(page).toHaveURL(/\/uk\/\?role=software#cv-skills$/);
   await expect(page.locator('h1')).toHaveText('Володимир Мироненко');
   await expect(page.locator('html')).toHaveAttribute('lang', 'uk');
   await expect(page.locator('#cv-projects')).toContainText('Сайт Гуртка політичних студій KSE');
@@ -104,10 +105,67 @@ test('saved language and shared focus are applied behind the boot screen', async
   expect(errors).toEqual([]);
 });
 
+test('language switch moves between / and /uk/', async ({ page }) => {
+  await page.goto('/');
+  await hydrated(page);
+  await page.getByRole('button', { name: 'ua', exact: true }).click();
+  await expect(page).toHaveURL(/\/uk\/$/);
+  await expect(page).toHaveTitle(/^Володимир Мироненко/);
+  await expect(page.locator('h1')).toHaveText('Володимир Мироненко');
+  await page.reload();
+  await expect(page.locator('h1')).toHaveText('Володимир Мироненко');
+  await hydrated(page);
+  await page.getByRole('button', { name: 'en', exact: true }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page).toHaveTitle(/^Volodymyr Myronenko/);
+  await page.goto('/');
+  await expect(page).toHaveURL(/\/$/);
+});
+
+for (const [path, lang, name] of [
+  ['/', 'en', 'Volodymyr Myronenko'],
+  ['/uk/', 'uk', 'Володимир Мироненко'],
+]) {
+  test(`${path} is prerendered with its own head`, async ({ browser, request }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    await page.goto(path);
+    await expect(page.locator('html')).toHaveAttribute('lang', lang);
+    await expect(page.locator('h1')).toHaveText(name);
+    const meta = (sel) => page.locator(sel).first().getAttribute('content');
+    const url = 'https://volempdoge.github.io' + path;
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', url);
+    expect(await meta('meta[property="og:url"]')).toBe(url);
+    expect(await meta('meta[name="twitter:card"]')).toBe('summary_large_image');
+    const image = await meta('meta[property="og:image"]');
+    expect(image).toBe('https://volempdoge.github.io/og/' + lang + '.png');
+    const png = await request.get(new URL(image).pathname);
+    expect(png.headers()['content-type']).toBe('image/png');
+    const buf = await png.body();
+    expect([buf.readUInt32BE(16), buf.readUInt32BE(20)]).toEqual([1200, 630]);
+    const ld = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+    expect(ld.mainEntity.name).toBe(name);
+    await context.close();
+  });
+}
+
+test('robots, sitemaps and the 404 page', async ({ request }) => {
+  const robots = await (await request.get('/robots.txt')).text();
+  expect(robots).toContain('Sitemap: https://volempdoge.github.io/sitemap.xml');
+  const index = await (await request.get('/sitemap.xml')).text();
+  expect(index).toContain('<loc>https://volempdoge.github.io/sitemap-cv.xml</loc>');
+  const cv = await (await request.get('/sitemap-cv.xml')).text();
+  expect(cv).toContain('<loc>https://volempdoge.github.io/</loc>');
+  expect(cv).toContain('<loc>https://volempdoge.github.io/uk/</loc>');
+  expect(cv).toMatch(/<lastmod>\d{4}-\d\d-\d\dT/);
+  const notFound = await (await request.get('/404.html')).text();
+  expect(notFound).toContain('<meta name="robots" content="noindex" />');
+});
+
 test('focus switch updates the page and the address', async ({ page }) => {
   await page.goto('/');
   await hydrated(page);
-  await page.getByRole('button', { name: 'focus on relevant projects & skills' }).click();
+  await page.getByRole('button', { name: 'Embedded Engineer', exact: true }).click();
   await page.getByRole('option', { name: /Software Engineer/ }).click();
   await expect(page).toHaveURL(/\?role=software$/);
   await expect(page.locator('#cv-projects')).toContainText('KSE Political Studies Club website');
@@ -116,7 +174,7 @@ test('focus switch updates the page and the address', async ({ page }) => {
 test('every icon on the page is in the icon font subset', async ({ page }) => {
   await page.goto('/');
   await hydrated(page);
-  await page.getByRole('button', { name: 'focus on relevant projects & skills' }).click();
+  await page.getByRole('button', { name: 'Embedded Engineer', exact: true }).click();
   const seen = new Set(await page.locator('.cv-icon').allTextContents());
   await page.keyboard.press('Escape');
   await page.keyboard.press('ControlOrMeta+k');
